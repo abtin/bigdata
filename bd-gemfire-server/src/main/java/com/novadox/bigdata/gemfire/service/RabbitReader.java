@@ -1,22 +1,28 @@
 package com.novadox.bigdata.gemfire.service;
 
+import com.gemstone.gemfire.admin.SystemMembershipEvent;
+import com.gemstone.gemfire.admin.SystemMembershipListener;
 import com.gemstone.gemfire.cache.Region;
 import com.novadox.bigdata.common.api.Constants;
 import com.novadox.bigdata.common.model.Person;
 import com.rabbitmq.client.Channel;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.ChannelAwareMessageListener;
 import org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer;
 import org.springframework.amqp.rabbit.listener.adapter.MessageListenerAdapter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 import org.springframework.util.SerializationUtils;
 
 import javax.annotation.Resource;
 
 @Service
-public class RabbitReader {
+public class RabbitReader implements SystemMembershipListener {
+    private static Logger log = LoggerFactory.getLogger(RabbitReader.class);
 
 //    @Autowired
 //    private AmqpTemplate amqpTemplate;
@@ -24,13 +30,13 @@ public class RabbitReader {
     @Resource(name= Constants.PERSON_REGION)
     private Region<String, Person> personRegion;
 
+    private SimpleMessageListenerContainer container;
     @Autowired
     private ConnectionFactory connectionFactory;
 
-    //todo: uncomment "@Bean" to make the listner start with gemfire!
-//    @Bean
+    @Bean
     public SimpleMessageListenerContainer container() {
-        SimpleMessageListenerContainer container = new SimpleMessageListenerContainer(this.connectionFactory);
+        container = new SimpleMessageListenerContainer(this.connectionFactory);
         Object listener = new ChannelAwareMessageListener() {
             @Override
             public void onMessage(Message message, Channel channel) throws Exception {
@@ -47,4 +53,20 @@ public class RabbitReader {
     }
 
 
+    @Override
+    public void memberJoined(SystemMembershipEvent systemMembershipEvent) {
+        log.info("memberJoined memberId=[{}]", systemMembershipEvent.getMemberId());
+    }
+
+    @Override
+    public void memberLeft(SystemMembershipEvent systemMembershipEvent) {
+        log.info("memberLeft memberId=[{}]", systemMembershipEvent.getMemberId());
+        container.stop();
+    }
+
+    @Override
+    public void memberCrashed(SystemMembershipEvent systemMembershipEvent) {
+        log.info("memberLeft memberId=[{}]", systemMembershipEvent.getMemberId());
+        container.stop();
+    }
 }
