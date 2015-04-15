@@ -21,7 +21,9 @@
 
     <gfe:cache properties-ref="gemfire-props"/>
 
-    <gfe:cache-server port="0" />
+    <gfe:cache-server port="${gfe.port}"/>
+
+    <context:property-placeholder location="file:../config/server-cache.properties"/>
 
     <gfe:partitioned-region id="Person"/>
 
