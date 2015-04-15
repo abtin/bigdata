@@ -1,6 +1,3 @@
 dependencies {
-    compile ("org.springframework.data:spring-data-gemfire:${springdataGemfireVersion}") {
-        exclude module:"gemfire"
-    }
-    compile group:"com.gemstone.gemfire", name:"gemfire", version:"${gemfireVersion}"
+    compile ("org.springframework.data:spring-data-gemfire:${springdataGemfireVersion}")
 }
