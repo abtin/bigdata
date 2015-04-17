@@ -15,12 +15,14 @@ import org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer;
 import org.springframework.amqp.rabbit.listener.adapter.MessageListenerAdapter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Service;
 import org.springframework.util.SerializationUtils;
 
 import javax.annotation.Resource;
 
 @Service
+@Configuration
 public class RabbitReader implements SystemMembershipListener {
     private static Logger log = LoggerFactory.getLogger(RabbitReader.class);
 
@@ -31,11 +33,15 @@ public class RabbitReader implements SystemMembershipListener {
     private Region<String, Person> personRegion;
 
     private SimpleMessageListenerContainer container;
+
     @Autowired
     private ConnectionFactory connectionFactory;
 
     @Bean
     public SimpleMessageListenerContainer container() {
+        log.info("Registering queue listener connecting to rabbit on [{}:{}] virtualHost [{}]",
+                this.connectionFactory.getHost(), connectionFactory.getPort(), connectionFactory.getVirtualHost());
+
         container = new SimpleMessageListenerContainer(this.connectionFactory);
         Object listener = new ChannelAwareMessageListener() {
             @Override

@@ -5,27 +5,16 @@ import com.novadox.bigdata.common.model.Person;
 import org.fluttercode.datafactory.impl.DataFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
-import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
 
 import java.util.Date;
 
-//import org.springframework.amqp.core.Binding;
-//import org.springframework.amqp.core.BindingBuilder;
-//import org.springframework.amqp.core.Queue;
-//import org.springframework.amqp.core.TopicExchange;
-
-@Configuration
 @ComponentScan
 @EnableAutoConfiguration
 public class SenderApp implements CommandLineRunner {
@@ -36,37 +25,6 @@ public class SenderApp implements CommandLineRunner {
 
     @Autowired
     RabbitTemplate rabbitTemplate;
-
-    @Value("${rabbitServerHost}")
-    private String rabbitSererHost;
-
-    @Value("${rabbitUserName}")
-    private String rabbitUser;
-
-    @Value("${rabbitPassword}")
-    private String rabbitPassword;
-
-    @Bean
-    ConnectionFactory connectionFactory() {
-        CachingConnectionFactory cf = new CachingConnectionFactory(rabbitSererHost);
-//        cf.setUsername(rabbitUser);
-//        cf.setPassword(rabbitPassword);
-        return cf;
-    }
-//    @Bean
-//    Queue queue() {
-//        return new Queue(Constants.PERSON_HAWQ_TO_GEMFIRE_QUEUE, false);
-//    }
-//
-//    @Bean
-//    TopicExchange exchange() {
-//        return new TopicExchange("spring-boot-exchange");
-//    }
-//
-//    @Bean
-//    Binding binding(Queue queue, TopicExchange exchange) {
-//        return BindingBuilder.bind(queue).to(exchange).with(Constants.PERSON_HAWQ_TO_GEMFIRE_QUEUE);
-//    }
 
     private DataFactory df = new DataFactory();
     private Date minAge = df.getDate(2000, 1, 1);
@@ -93,7 +51,7 @@ public class SenderApp implements CommandLineRunner {
         }
 
         long startTime = System.currentTimeMillis();
-        for (int i=0; i<count; i++) {
+        for (int i = 0; i < count; i++) {
             rabbitTemplate.convertAndSend(Constants.PERSON_HAWQ_TO_GEMFIRE_QUEUE, fakePerson());
         }
         long totalTime = System.currentTimeMillis() - startTime;
