@@ -3,7 +3,7 @@ configurations {
 }
 
 dependencies {
-    compile project(":bd-common")
+    compile project(":bd-common-api")
     compile group:"org.springframework.amqp", name:"spring-amqp", version:"${springAmqpVersion}"
     compile group:"org.springframework.amqp", name:"spring-rabbit", version:"${springAmqpVersion}"
     compile group:"org.springframework", name:"spring-aop", version:"${springVersion}"
@@ -13,13 +13,13 @@ dependencies {
     runtime group:"log4j", name:"log4j", version:"${log4jVersion}"
 
     // These are the jar files that needs to be in the classpath when starting gemfire via gfsh
+    gfshServerStartClasspath project(":bd-common-api")
+    gfshServerStartClasspath project(":bd-gemfire-server")
     gfshServerStartClasspath group:"org.springframework.data", name:"spring-data-gemfire", version:"${springdataGemfireVersion}"
     gfshServerStartClasspath group:"log4j", name:"log4j", version:"${log4jVersion}"
     gfshServerStartClasspath group:"org.springframework.amqp", name:"spring-amqp", version:"${springAmqpVersion}"
     gfshServerStartClasspath group:"org.springframework.amqp", name:"spring-rabbit", version:"${springAmqpVersion}"
     gfshServerStartClasspath group:"com.rabbitmq", name:"amqp-client", version:"${rabbitClientVersion}"
-    gfshServerStartClasspath project(":bd-gemfire-server")
-    gfshServerStartClasspath project(":bd-common")
 
 }
 

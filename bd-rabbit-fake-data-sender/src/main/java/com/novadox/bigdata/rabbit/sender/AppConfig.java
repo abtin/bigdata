@@ -1,6 +1,6 @@
 package com.novadox.bigdata.rabbit.sender;
 
-import com.novadox.bigdata.common.api.Constants;
+import com.novadox.bigdata.common.model.Constants;
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
 import org.springframework.amqp.core.Queue;

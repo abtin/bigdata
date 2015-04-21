@@ -1,6 +1,6 @@
 package com.novadox.bigdata.rabbit.receiver;
 
-import com.novadox.bigdata.common.api.Constants;
+import com.novadox.bigdata.common.model.Constants;
 import com.novadox.bigdata.common.model.Person;
 import com.rabbitmq.client.Channel;
 import org.springframework.amqp.core.Message;

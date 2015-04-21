@@ -1,4 +1,4 @@
-package com.novadox.bigdata.common.api;
+package com.novadox.bigdata.common.model;
 
 public abstract class Constants {
     // Queue name is in format of "<Object>.<Source>.<Destination>"

@@ -3,7 +3,7 @@ package com.novadox.bigdata.gemfire.service;
 import com.gemstone.gemfire.admin.SystemMembershipEvent;
 import com.gemstone.gemfire.admin.SystemMembershipListener;
 import com.gemstone.gemfire.cache.Region;
-import com.novadox.bigdata.common.api.Constants;
+import com.novadox.bigdata.common.model.Constants;
 import com.novadox.bigdata.common.model.Person;
 import com.rabbitmq.client.Channel;
 import org.slf4j.Logger;

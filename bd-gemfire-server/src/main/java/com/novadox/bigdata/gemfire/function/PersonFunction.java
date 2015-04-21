@@ -4,7 +4,7 @@ package com.novadox.bigdata.gemfire.function;
 import com.gemstone.gemfire.cache.Region;
 import com.gemstone.gemfire.cache.execute.FunctionContext;
 import com.gemstone.gemfire.cache.execute.RegionFunctionContext;
-import com.novadox.bigdata.common.api.Constants;
+import com.novadox.bigdata.common.model.Constants;
 import com.novadox.bigdata.common.model.Person;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

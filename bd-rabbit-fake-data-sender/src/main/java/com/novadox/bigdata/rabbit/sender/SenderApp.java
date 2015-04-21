@@ -1,6 +1,6 @@
 package com.novadox.bigdata.rabbit.sender;
 
-import com.novadox.bigdata.common.api.Constants;
+import com.novadox.bigdata.common.model.Constants;
 import com.novadox.bigdata.common.model.Person;
 import org.fluttercode.datafactory.impl.DataFactory;
 import org.slf4j.Logger;

@@ -17,7 +17,9 @@ buildscript {
         datafactoryVersion='0.8'
     }
     repositories {
-        mavenCentral()
+        //mavenCentral()
+      	maven { url "http://10.193.12.23:8081/artifactory/remote-repos" }
+        maven { url 'http://10.193.12.23:8081/artifactory/plugins-release'}
 
     }
     dependencies {
@@ -36,10 +38,13 @@ allprojects {
     logging.captureStandardOutput LogLevel.DEBUG
 
     repositories {
-        mavenCentral()
-        maven { url "https://repo.spring.io/libs-release" }
-        maven { url 'http://repo.spring.io/milestone' }
+        //mavenCentral()
+        //maven { url "https://repo.spring.io/libs-release" }
+        //maven { url 'http://repo.spring.io/milestone' }
         
+        maven { url "http://10.193.12.23:8081/artifactory/remote-repos" }
+        maven { url 'http://10.193.12.23:8081/artifactory/plugins-release'}
+        maven { url 'http://10.193.12.23:8081/artifactory/libs-release'}
     }
 
 

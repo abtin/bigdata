@@ -1,6 +1,6 @@
 package com.novadox.bigdata.gemfire.rabbit.client;
 
-import com.novadox.bigdata.common.api.Constants;
+import com.novadox.bigdata.common.model.Constants;
 import com.novadox.bigdata.common.api.StorePersonFunctionApi;
 import com.novadox.bigdata.common.model.Person;
 import com.rabbitmq.client.Channel;
